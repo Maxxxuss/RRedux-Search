@@ -35,7 +35,7 @@ export const actions = {
     return (dispatch, getState) => {
       dispatch(actions.clearData())
       const data = {}
-      for (var i = 0; i < 1000; i++) {
+      for (var i = 0; i < 10; i++) {
         let id = faker.random.uuid()
         data[id] = {
           id: id,
@@ -54,7 +54,7 @@ export const actions = {
     return (dispatch, getState) => {
       dispatch(actions.clearImmutableData())
       const immutableMap = {}
-      for (var i = 0; i < 1000; i++) {
+      for (var i = 0; i < 10; i++) {
         let id = faker.random.uuid()
         immutableMap[id] = new Record({
           id: id,
@@ -101,7 +101,10 @@ const immutableSelectors = getSearchSelectors({ resourceName: 'immutableMap', re
 export const immutableDataSearchText = immutableSelectors.text
 export const filteredIdList = createSelector([immutableSelectors.result], result => Immutable.List(result))
 
-export function reducer (state = new State(), action: Object): State {
+
+// export function reducer (state = new State(), action: Object): State {
+export const reducer = (state = new State(), action)=> {
+
   const { type } = action
   if (type in actionHandlers) {
     return actionHandlers[type](state, action)
