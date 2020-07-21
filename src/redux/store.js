@@ -24,7 +24,7 @@ const getLocalStorageState = () => {
 
 
 
-export default function createAppStore (): Object {
+export default () =>  {
   const finalCreateStore = compose(
     applyMiddleware(thunk),
 
