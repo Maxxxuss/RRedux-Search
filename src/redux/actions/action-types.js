@@ -21,6 +21,11 @@ export const search ={
     receiveResult: '@@reduxSearch/receiveResult',
     search: '@@reduxSearch/search',
     createSearchAction: '@@reduxSearch/createSearchAction',
+    defineIndex: '@@reduxSearch/defineIndex',
+    indexResource: '@@reduxSearch/indexResource',
+    performSearch: '@@reduxSearch/performSearch',
+
+
 }
 
 

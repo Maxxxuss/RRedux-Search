@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Searchfield from '../components/search/searchApp'
-// import Actions
+import { initializeResources,receiveResult, indexResource, search } from '../redux/actions/search';
 // import Selectors
 
 // export default connect(
@@ -8,3 +8,8 @@ import Searchfield from '../components/search/searchApp'
 //     mapDispatchToProps,
 // )(Notepad);
 
+const mapDispatchToProps = (dispatch) => ({
+    resourceNames: (resourceIndexes, resourceNames) => dispatch ()
+
+
+})

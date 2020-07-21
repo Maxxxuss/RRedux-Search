@@ -1,9 +1,10 @@
 import { applyMiddleware } from 'redux'
 import { defaultSearchStateSelector } from './selectors'
-import * as actions from './actions'
+import { search as actions } from '../../redux/actions/action-types'
 import { SEARCH_STATE_SELECTOR } from './constants'
 import searchMiddleware from './searchMiddleware'
 import SearchApi from './SearchApi'
+import { Component } from 'react'
 
 /**
  * Creates higher-order search store to be composed with other store enhancers.
@@ -27,12 +28,17 @@ import SearchApi from './SearchApi'
  *     Selects the search sub-state within the state store.
  *     Default implementation provided; override if you add searchReducer() to a node other than :search.
  */
-export default function reduxSearch ({
+
+ class ReduxSearch extends Component{
+
+reduxSearch = ({
   resourceIndexes = {},
   resourceSelector,
   searchApi = new SearchApi(),
   searchStateSelector = defaultSearchStateSelector
-} = {}) {
+} = {}) =>
+
+{
   return createStore => (reducer, initialState) => {
     const store = applyMiddleware(
       searchMiddleware(searchApi)
@@ -42,7 +48,7 @@ export default function reduxSearch ({
     store[SEARCH_STATE_SELECTOR] = searchStateSelector
 
     const resourceNames = Object.keys(resourceIndexes)
-    store.dispatch(actions.initializeResources(resourceNames))
+    store.dispatch(actions.initializeResources(resourceNames))            // DONE
 
     searchApi.subscribe(({ result, resourceName, text }) => {
       // Here we handle item responses
@@ -86,3 +92,6 @@ export default function reduxSearch ({
     return store
   }
 }
+}
+
+export default ReduxSearch
