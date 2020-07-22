@@ -6,6 +6,9 @@ import searchMiddleware from './searchMiddleware'
 import SearchApi from './SearchApi'
 import { Component } from 'react'
 
+import PropTypes from 'prop-types';
+
+
 /**
  * Creates higher-order search store to be composed with other store enhancers.
  * This function accepts the following, optional parameters (via a params Object):
@@ -31,6 +34,13 @@ import { Component } from 'react'
 
  class ReduxSearch extends Component{
 
+  static propTypes = {
+    initializeResources: PropTypes.func.isRequired,
+    receiveResult: PropTypes.func.isRequired,
+    indexResource: PropTypes.func.isRequired,
+    search: PropTypes.func.isRequired,
+  }
+
 reduxSearch = ({
   resourceIndexes = {},
   resourceSelector,
@@ -47,8 +57,8 @@ reduxSearch = ({
     store.search = searchApi
     store[SEARCH_STATE_SELECTOR] = searchStateSelector
 
-    const resourceNames = Object.keys(resourceIndexes)
-    store.dispatch(actions.initializeResources(resourceNames))            // DONE
+    const {resourceNames, initializeResources} = Object.keys(resourceIndexes)
+    initializeResources(resourceNames)            // DONE
 
     searchApi.subscribe(({ result, resourceName, text }) => {
       // Here we handle item responses

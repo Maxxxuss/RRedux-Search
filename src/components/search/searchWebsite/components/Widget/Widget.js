@@ -27,8 +27,20 @@ class Widget extends Component {
   //   searchData,
   //   title
   // })
+    handelGenerateData = () => {
+      const {generateData} = this.props
+      return (generateData()) 
+    }
+
+    handelSearchData = () => {
+      const {searchData} = this.props
+      return (handelSearchData()) 
+    }
+
+
+
    render () {
-     const {recordIds, title, generateData, rowRenderer, recordsMap, searchData} = this.props
+     const {recordIds, title, generateData, rowRenderer, recordsMap, searchData, } = this.props
     const totalSize = recordsMap instanceof Immutable.Collection
       ? recordsMap.size
       : Object.keys(recordsMap).length
@@ -49,14 +61,14 @@ class Widget extends Component {
         <div className={styles.ControlBar}>
           <button
             className={styles.Button}
-            onClick={generateData}
+            onClick={this.handelGenerateData()}
           >
             Generate Data
           </button>
           <input
             disabled={recordsMap.size === 0}
             className={styles.SearchInput}
-            onChange={event => searchData(event.target.value)}
+            onChange={event => {handelSearchData(event.target.value)}}
             placeholder='Search..'
           />
         </div>
